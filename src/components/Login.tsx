@@ -19,16 +19,13 @@ function Login({ onAuthChange }: { onAuthChange: () => void }) {
     e.preventDefault();
     const url = "http://82.29.161.36:2000/signin"
     try {
-      const response:any = await axios.post(url, formData)
-      if(response){
-        console.log(response.data?.result?.tokens?.accessToken);
+      const response = await axios.post(url, formData)
+      console.log(response.data?.result?.tokens?.accessToken);
 
-        localStorage.setItem('token', response.data?.result?.tokens?.accessToken); // Store token in localStorage
-        onAuthChange();
-        console.log('Login Form Data:', formData);
-        navigate('/profile');
-      }
-     
+      localStorage.setItem('token', response.data?.result?.tokens?.accessToken); // Store token in localStorage
+      onAuthChange();
+      console.log('Login Form Data:', formData);
+      navigate('/chooseTheme');
 
     } catch (error) {
 

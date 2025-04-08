@@ -89,7 +89,7 @@ function ChooseThemeIndex() {
                                 <p className="text-gray-600 text-sm mb-4">{item?.description}</p>
                                 <div className="flex gap-1 justify-end">
                                     <button className="px-4 py-2 text-blue-600 rounded-md hover:bg-gray-200 hover:text-blue hover:border-none border-2"
-                                        onClick={() => navigate(`/chooseTheme/dashboard/${item?.id}`)}
+                                        onClick={() => navigate(`/chooseTheme/subDomainCreate/${item?.id}`)}
                                     >
                                         Buy Now
                                     </button>

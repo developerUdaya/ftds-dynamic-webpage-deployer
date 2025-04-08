@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useForm, useFieldArray } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 function Dashboard() {
     const token = localStorage.getItem('token');
-    const navigate=useNavigate();
+    const {id}=useParams();
     const { register, control, handleSubmit, setValue } = useForm({
         defaultValues: {
             logo: '',
-            sub_domain: '',
+            sub_domain: id ? id:'',
             mobile: '',
             email: '',
             topLinks: [{ name: "", href: "" }],
@@ -293,7 +293,7 @@ function Dashboard() {
     const onSubmit = async (data: any) => {
         console.log(data);
         const payload = {
-            sub_domain: data?.sub_domain,
+            sub_domain: data?.sub_domain ? data?.sub_domain : id,
             topLinks: data?.topLinks,
             logo:data?.logo,
             sliderData: data?.sliderData?.map((item: any) => ({
@@ -321,7 +321,7 @@ function Dashboard() {
                 },
                 {
                     icon: 'fa-envelope',
-                    textMobile: data?.email,
+                    textMobile: data?.textMail,
 
                 },
             ],
@@ -374,8 +374,8 @@ function Dashboard() {
                     Authorization: `Bearer ${token}`
                 }
             });
-            navigate("/profile"); 
             console.log(response?.data); // Logging the successful response
+
         } catch (error: any) {
             console.log(error?.response); // Logging the error response
         }

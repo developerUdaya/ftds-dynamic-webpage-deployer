@@ -141,9 +141,9 @@ function ProfilePage() {
             <div className="p-5 lg:px-10 px-5">
                 <div className="flex justify-between mb-5">
                     <h1 className="text-lg font-bold py-4 flex">Your Themes</h1>
-                    {/* <button className="bg-blue-500 text-white px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button className="bg-blue-500 text-white px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         Add Theme
-                    </button> */}
+                    </button>
 
                 </div>
 
@@ -169,12 +169,13 @@ function ProfilePage() {
                                     >
                                       Live
                                     </button>
-                                    {/* <button
+                                    <button
                                         className="px-4 py-2 text-blue-600 rounded-md hover:bg-blue-500 hover:text-white hover:border-none flex gap-1 border-2"
+                                        // onClick={() => window.open(`${item?.link}`, "_blank")}
                                         onClick={()=> navigate(`chooseTheme/dashboard/${item?._id}`)}
                                     >
                                         Edit Theme
-                                    </button> */}
+                                    </button>
                                 </div>
                             </div>
                         </div>
