@@ -1,15 +1,18 @@
 import axios from "axios";
 import { useForm, useFieldArray } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 function Dashboard() {
     const token = localStorage.getItem('token');
-    const {id}=useParams();
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+
     const { register, control, handleSubmit, setValue } = useForm({
         defaultValues: {
             logo: '',
-            sub_domain: id ? id:'',
+            sub_domain: id ? id : '',
             mobile: '',
             email: '',
             topLinks: [{ name: "", href: "" }],
@@ -290,12 +293,13 @@ function Dashboard() {
             name: "pricingData"
         })
 
+
     const onSubmit = async (data: any) => {
         console.log(data);
         const payload = {
             sub_domain: data?.sub_domain ? data?.sub_domain : id,
             topLinks: data?.topLinks,
-            logo:data?.logo,
+            logo: data?.logo,
             sliderData: data?.sliderData?.map((item: any) => ({
                 title: item?.title,
                 description: item?.description,
@@ -374,10 +378,13 @@ function Dashboard() {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log(response?.data); // Logging the successful response
+            if (response) {
+                navigate('/profile')
+            }
+            console.log(response?.data);
 
         } catch (error: any) {
-            console.log(error?.response); // Logging the error response
+            console.log(error?.response);
         }
 
     };
@@ -390,9 +397,10 @@ function Dashboard() {
                     <input
                         {...register("sub_domain")}
                         placeholder="Sub domain"
-                        className="border p-2 rounded w-full"
+                        className="border p-2 rounded w-full "
                     />
                 </div>
+
                 {/* Top Links Section */}
                 <div className="border p-4 rounded-lg">
                     <h2 className="text-xl font-semibold mb-4">Top Links</h2>
@@ -427,7 +435,7 @@ function Dashboard() {
                 </div>
                 {/* lOGO */}
                 <div className=" shadow-md border p-4 rounded-lg">
-                <h2 className="text-xl font-semibold mb-4">Logo </h2>
+                    <h2 className="text-xl font-semibold mb-4">Logo </h2>
                     <input
                         type="file"
                         onChange={(e) => handleFileChange('logo', e)}

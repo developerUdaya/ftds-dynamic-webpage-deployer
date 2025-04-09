@@ -14,18 +14,22 @@ function Login({ onAuthChange }: { onAuthChange: () => void }) {
     email: '',
     password: '',
   });
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const url = "http://82.29.161.36:2000/signin"
     try {
       const response = await axios.post(url, formData)
       console.log(response.data?.result?.tokens?.accessToken);
-
-      localStorage.setItem('token', response.data?.result?.tokens?.accessToken); // Store token in localStorage
-      onAuthChange();
-      console.log('Login Form Data:', formData);
-      navigate('/chooseTheme');
+      if (response) {
+        localStorage.setItem('token', response.data?.result?.tokens?.accessToken);
+        onAuthChange();
+        console.log('Login Form Data:', formData);
+        navigate('/chooseTheme');
+        setLoading(true);
+      }
 
     } catch (error) {
 
@@ -82,10 +86,10 @@ function Login({ onAuthChange }: { onAuthChange: () => void }) {
             </div>
 
             <button
+              disabled={loading}
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Sign In
+            >{loading ? 'Loading...' : 'Sign In'}
             </button>
           </form>
           <div className="text-center mt-4">
