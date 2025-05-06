@@ -172,7 +172,7 @@ function ProfilePage() {
                                     <button
                                         className="px-4 py-2 text-blue-600 rounded-md hover:bg-blue-500 hover:text-white hover:border-none flex gap-1 border-2"
                                         // onClick={() => window.open(`${item?.link}`, "_blank")}
-                                        onClick={()=> navigate(`chooseTheme/dashboard/${item?._id}`)}
+                                        onClick={()=> navigate(`chooseTheme/${item?.theme_id}/${item?.sub_domain}`)}
                                     >
                                         Edit Theme
                                     </button>

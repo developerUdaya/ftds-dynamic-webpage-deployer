@@ -45,13 +45,13 @@ function CreateDomain() {
         setLoading(true);
         const payload = {
             ...data,
-            themeName: "Theme1"
+            themeName: `Theme${id}`
         }
         try {
             const res = await axios.post(url.createSubdomain, payload);
-            console.log(res?.data?.result?.domain_name)
+            console.log(res?.data?.result)
             if (res) {
-                navigate(`/profile/chooseTheme/dashboard/${res?.data?.result?.domain_name}`)
+                navigate(`/profile/chooseTheme/theme${id}/${res?.data?.result?.name}`)  
             }
         } catch (error) {
             console.error("API Error:", error);

@@ -7,7 +7,6 @@ import ChooseThemeIndex from './components/ThemePage';
 import ProfilePage from './components/Profile/ProfilePage';
 import CreateDomain from './components/CreateDomain';
 import Theme2Index from './components/Themes/Theme2/Theme2';
-import Theme1Index from './components/Themes/Theme1/Theme1';
 
 // Function to check authentication status
 const isAuthenticated = () => !!localStorage.getItem('token');
@@ -37,7 +36,13 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/chooseTheme/dashboard/:id" element={<Dashboard />} />
         <Route path="/profile/chooseTheme/dashboard" element={<Dashboard />} />
-        <Route path="/chooseTheme/subDomainCreate/:id" element={<Theme1Index />} />
+        <Route path="/profile/chooseTheme/dashboard" element={<Dashboard />} />
+        <Route path="/profile/chooseTheme/theme2/:id" element={<Theme2Index />} />
+        <Route path="/profile/chooseTheme/theme1/:id" element={<Theme2Index />} />
+        <Route path="/profile/Theme2/:id" element={<Theme2Index />} />
+        <Route path="/chooseTheme/subDomainCreate/:id" element={<CreateDomain />} />
+        
+
       </Routes>
       {/* </div>
       </div> */}
