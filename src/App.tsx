@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard';
 import ChooseThemeIndex from './components/ThemePage';
 import ProfilePage from './components/Profile/ProfilePage';
 import CreateDomain from './components/CreateDomain';
+import Theme2Index from './components/Themes/Theme2/Theme2';
+import Theme1Index from './components/Themes/Theme1/Theme1';
 
 // Function to check authentication status
 const isAuthenticated = () => !!localStorage.getItem('token');
@@ -35,7 +37,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/chooseTheme/dashboard/:id" element={<Dashboard />} />
         <Route path="/profile/chooseTheme/dashboard" element={<Dashboard />} />
-        <Route path="/chooseTheme/subDomainCreate/:id" element={<CreateDomain />} />
+        <Route path="/chooseTheme/subDomainCreate/:id" element={<Theme1Index />} />
       </Routes>
       {/* </div>
       </div> */}
