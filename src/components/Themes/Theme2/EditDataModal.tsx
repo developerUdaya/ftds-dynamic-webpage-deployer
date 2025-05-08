@@ -7,12 +7,12 @@ function EditDataModal({ text, onSave, isHeader = false, fieldId, loading }: any
 
   const handleSave = () => {
     onSave(value)
-    if (loading === false) {
+    // if (loading === false) {
+      // console.log(loading)
       setIsModalOpen(false);
 
-    }
+    // }
   };
-  console.log(loading)
   return (
     <>
       <div className="d-flex align-items-center editable-text">

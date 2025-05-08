@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { User, Lock, Mail, UserPlus, Phone } from 'lucide-react';
+import { User, Lock, Mail, Phone } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import url from '../url'
 interface RegisterFormData {
   name: string;
   email: string;
@@ -18,22 +18,48 @@ function Register() {
     password: '',
     mobile: '',
   });
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setErrorMessage('');
+  //   try {
+  //     const response = await axios.post(url.signUp, formData)
+  //     localStorage.setItem('token', "abcd")
+  //     navigate('/chooseTheme')
+  //     console.log(response?.data);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+
+  //   }
+  //   console.log('Register Form Data:', formData);
+  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const url = "http://192.168.0.37:2000/signup"
+    setLoading(true);
+    setErrorMessage('');
     try {
-      const response = await axios.post(url, formData)
-      localStorage.setItem('token', "abcd")
-      navigate('/chooseTheme')
-      console.log(response?.data);
-
-    } catch (error) {
-      console.log(error);
-
+      const response = await axios.post(url.signUp, formData);
+      if (response) {
+        localStorage.setItem('token', 'abcd');
+        navigate('/chooseTheme');
+      }
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.msg ||
+        error?.msg ||
+        'Something went wrong. Please try again.';
+      setErrorMessage(message);
+    } finally {
+      setLoading(false);
     }
-    console.log('Register Form Data:', formData);
   };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -114,12 +140,17 @@ function Register() {
 
 
             </div>
-
+            {errorMessage && (
+              <div style={{ color: 'red', marginBottom: '1rem' }}>
+                {errorMessage}
+              </div>
+            )}
             <button
+              disabled={loading}
               type="submit"
               className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              Create Account
+              {loading ? 'Loading...' : 'Create Account'}
             </button>
           </form>
         </div>

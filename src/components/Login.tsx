@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { User, Lock } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import url from '../url'
 
 interface LoginFormData {
   email: string;
@@ -15,26 +16,54 @@ function Login({ onAuthChange }: { onAuthChange: () => void }) {
     password: '',
   });
   const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.post(url.signIn, formData)
+  //     console.log(response.data?.result?.tokens?.accessToken);
+  //     if (response) {
+  //       localStorage.setItem('token', response.data?.result?.tokens?.accessToken);
+  //       onAuthChange();
+  //       console.log('Login Form Data:', formData);
+  //       navigate('/chooseTheme');
+  //       setLoading(true);
+  //     }
+
+  //   } catch (error) {
+  //     setLoading(false);
+
+  //   }
+
+  // };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const url = "http://82.29.161.36:2000/signin"
+    setErrorMessage('');
+
     try {
-      const response = await axios.post(url, formData)
-      console.log(response.data?.result?.tokens?.accessToken);
-      if (response) {
-        localStorage.setItem('token', response.data?.result?.tokens?.accessToken);
+      const response = await axios.post(url.signIn, formData);
+      const token = response.data?.result?.tokens?.accessToken;
+
+      if (token) {
+        localStorage.setItem('token', token);
         onAuthChange();
         console.log('Login Form Data:', formData);
         navigate('/chooseTheme');
-        setLoading(true);
       }
 
-    } catch (error) {
-
+    } catch (error: any) {
+      const message =
+        error?.response?.data?.msg ||
+        error?.msg ||
+        'Login failed. Please try again.';
+      setErrorMessage(message);
+    } finally {
+      setLoading(false);
     }
-
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +113,11 @@ function Login({ onAuthChange }: { onAuthChange: () => void }) {
                 />
               </div>
             </div>
+            {errorMessage && (
+              <div style={{ color: 'red', marginBottom: '1rem' }}>
+                {errorMessage}
+              </div>
+            )}
 
             <button
               disabled={loading}
@@ -92,7 +126,12 @@ function Login({ onAuthChange }: { onAuthChange: () => void }) {
             >{loading ? 'Loading...' : 'Sign In'}
             </button>
           </form>
-          <div className="text-center mt-4">
+          <div className="text-blue-600  flex mt-2 justify-center cursor-pointer" 
+          onClick={()=>navigate('/forgot-password')}
+          >
+                Forgot Password
+              </div>
+          <div className="text-center mt-2">
             <p className="text-gray-600">
               Don't have an account?{' '}
               <Link to="/register" className="text-blue-600 hover:underline">
