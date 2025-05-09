@@ -4,22 +4,120 @@ import { useForm } from "react-hook-form";
 import url from "../url";
 import { useNavigate, useParams } from "react-router-dom";
 import { Loader } from "lucide-react";
-
+import api from '../url';
 function CreateDomain() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { id } = useParams<any>();
     const [domainError, setDomainError] = useState<any>('')
     const [domainLoader, setDomainLoader] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const numericId = Number(id);
+    const token = localStorage.getItem('token');
+    const theme2 = {
+        // logo: 'logo',
+        sliderData: 
+            {
+                title: 'You Can\nHire Freelancer\nHere',
+                description: 'It is a long established fact that a reader will be distracted by the readable content of a page',
+            },
+        experinceData: {
+            title: 'Best Experinced Freelancer Here',
+            description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as',
+        },
+        categoryData: [
+            {
+                text: 'Design & Arts',
+                // image: 'imagesC1'
+            },
+            {
+                text: 'Web Development',
+                // image: 'imagesC2'
+            },
+            {
+                text: 'SEO Markting',
+                // image: 'imagesC3'
+            },
+            {
+                text: 'Video Edting',
+                // image: 'imagesC4'
+            },
+            {
+                text: 'Logo Design',
+                // image: 'imagesC5'
+            },
+            {
+                text: 'Game Design',
+                // image: 'imagesC6'
+            },
+        ],
+        aboutData: {
+            title: 'About Spering Company',
+            description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If youThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you',
+            // image: 'images/experience-img.jpg'
+        },
+        freelanceData: {
+            title: 'Work Freelaner Has Done',
+            // image: 'images/freelance-img.jpg',
+            works: [
+                {
+                    count: '$250 Million',
+                    tittle: 'Paid to Freelancers',
+                    // image: "imagesF1",
+                },
+                {
+                    count: '2 Million',
+                    tittle: 'Paid Invoices',
+                    // image: "imagesF2",
+                },
+                {
+                    count: '700,000',
+                    tittle: 'Worldwide Freelancer',
+                    // image: "imagesF3",
+                },
+                {
+                    count: '98%',
+                    tittle: 'Customer Satisfaction Rate',
+                    // image: "imagesF4",
+                },
+            ]
+        },
+        feedbackData: {
+            title: "Testimonial",
+            feedback: [
+                {
+                    name: "John Hissona",
+                    description: "passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If youThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in s"
+                },
+                {
+                    name: "John Hissona",
+                    description: "passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If youThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in s"
+                },
+                {
+                    name: "John Hissona",
+                    description: "passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If youThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in s"
+                },
+            ]
+        },
+        footer: {
+            offices: 'Readable content of a page when looking at its layoutreadable content of a page when looking at its layout',
+            information: 'Readable content of a page when looking at its layoutreadable content of a page when looking at its layout',
+            email: 'demo@gmail.com',
+            phone: 'Call +01 1234567890',
+            copyright: 'Chennai',
+        }
+    };
 
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors, isValid },
     } = useForm();
-
+const domainName=watch('subdomain')
     const handleDomainCheck = async (val: any) => {
         setDomainLoader(true);
+        setDomainError('');
         try {
             if (val.length) {
                 const updateApi: any = await axios.get(`${url.checkDomain}/?sub_domain=${val}`)
@@ -43,36 +141,102 @@ function CreateDomain() {
 
     const onSubmit = async (data: any) => {
         setLoading(true);
+        setErrorMessage('');
         const payload = {
             ...data,
-            themeName: "Theme1"
+            themeName: `Theme${id}`
         }
         try {
             const res = await axios.post(url.createSubdomain, payload);
-            console.log(res?.data?.result?.domain_name)
             if (res) {
-                navigate(`/profile/chooseTheme/dashboard/${res?.data?.result?.domain_name}`)
+                const payload={
+                    ...theme2,
+                    sub_domain:data?.subdomain,
+                        theme_id: 'Theme2'
+                }
+                if (numericId === 2) {
+                    const updateTheme = await axios.post(api.websiteCreate, payload,
+                        {
+                            headers: {
+                              Authorization: `Bearer ${token}`,
+                            },
+                          }
+                    )
+                    if (updateTheme) {
+                        navigate(`/profile/chooseTheme/theme${id}/${res?.data?.result?.name}`)
+                    }
+                }
+                // navigate(`/profile/chooseTheme/theme${id}/${res?.data?.result?.name}`)
             }
-        } catch (error) {
-            console.error("API Error:", error);
+        } catch (error: any) {
+            console.log(error)
+            const message = error?.response?.data?.message || "Something went wrong. Please try again.";
+            setErrorMessage(message);
         } finally {
             setLoading(false);
         }
     };
 
+    // const onSubmit = async (data: any) => {
+    //     setLoading(true);
+    //     setErrorMessage('');
+      
+    //     const payload = {
+    //       ...data,
+    //       themeName: `Theme${id}`,
+    //     };
+      
+    //     try {
+    //       const res = await axios.post(url.createSubdomain, payload);
+      
+    //       if (!res?.data?.result?.name) {
+    //         throw new Error("Invalid response from subdomain creation.");
+    //       }
+      
+    //       if (numericId === 2) {
+    //         try {
+    //           const updateTheme = await axios.post(api.websiteCreate, {
+    //             theme2,
+    //             data,
+    //             theme_id: 'Theme2',
+    //           });
+      
+    //           if (!updateTheme?.data) {
+    //             throw new Error("Website update failed.");
+    //           }
+      
+    //         //   navigate(`/profile/chooseTheme/theme${id}/${res.data.result.name}`);
+    //         } catch (themeErr: any) {
+    //             console.log(themeErr?.response?.data?.msg)
+    //           const themeErrorMsg = themeErr?.response?.data?.msg || "Theme update failed.";
+    //           setErrorMessage(themeErrorMsg);
+    //         }
+    //       } else {
+    //         // navigate(`/profile/chooseTheme/theme${id}/${res.data.result.name}`);
+    //       }
+    //     } catch (error: any) {
+    //         console.log(error)
+    //       const message = error?.response?.data?.msg || "Something went wrong. Please try again.";
+    //       setErrorMessage(message);
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
+
+      
     return (
         <>
             <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-blue-500 via-gray-500 to-slate-500">
                 <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md">
-                    <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Create SubDomain</h2>
+                    <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Create Domain</h2>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <div>
-                            <label className="block text-lg font-bold text-gray-700 mb-1">Sub Domain</label>
+                            <label className="block text-lg font-bold text-gray-700 mb-1">business Name</label>
                             <div className="relative">
                                 <input
                                     type="text"
-                                    placeholder="Enter the subDomain"
+                                    placeholder="Enter the business Name"
                                     {...register("subdomain", {
                                         required: "Subdomain is required",
                                         onChange: (e) => {
@@ -87,6 +251,11 @@ function CreateDomain() {
                                         <Loader className="animate-spin text-blue-500" />
                                     </div>
                                 )}
+                                {domainLoader === false && domainName &&(
+                                    <p className="text-gray-400 mt-2">{domainName}.ftdigitalsolutions.org</p>
+                                )
+
+                                }
                             </div>
 
                             {typeof errors.subdomain?.message === "string" && (
@@ -110,7 +279,11 @@ function CreateDomain() {
                                 disabled
                             />
                         </div>
-
+                        {errorMessage && (
+                            <div className="text-red-600 bg-red-100 p-2 rounded mt-3">
+                                {errorMessage}
+                            </div>
+                        )}
                         <button
                             type="submit"
                             disabled={domainError || loading || !isValid || domainLoader}
@@ -119,7 +292,7 @@ function CreateDomain() {
                                 : "bg-green-700 hover:bg-green-600 text-white"
                                 }`}
                         >
-                            {loading ? "Creating..." : "Create SubDomain"}
+                            {loading ? "Creating..." : "Create Domain"}
                         </button>
                     </form>
                 </div>
