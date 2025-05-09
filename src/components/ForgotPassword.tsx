@@ -39,22 +39,20 @@ function ForgotPassword(){
         const updateApi = await axios.post(ApiUrls.checkEmail,{email});
         console.log(updateApi?.data?.result?._id)
         if (updateApi?.data?.result?._id) {
-        //   const sendOtp = await postSendOtpAPi({ email: updateApi?.data?.email });
-  
-        //   if (sendOtp) {
-        //     setEmailLoader(false);
-        //     setToken(sendOtp?.data?.token);
-        //     setShowModal(true);
-        //     setTimer(60);
-        //     setOtp(Array(6).fill(''));
-        //     setTimeout(() => inputsRef.current[0]?.focus(), 100);
-        //   }
+          const sendOtp = await axios.post(ApiUrls.sendOtp,{ value: updateApi?.data?.result?.email });
+          if (sendOtp) {
+            setEmailLoader(false);
+            setShowModal(true);
+            setTimer(60);
+            setOtp(Array(6).fill(''));
+            setTimeout(() => inputsRef.current[0]?.focus(), 100);
+          }
         } else {
           setErrorMessage("You're not a user, please create an account.");
           setEmailLoader(false);
         }
       } catch (error) {
-        setErrorMessage("You're not a user, please create an account.");
+        setErrorMessage("Failed to send email. Please try again.");
         setEmailLoader(false);
       }
     };
@@ -80,19 +78,12 @@ function ForgotPassword(){
       const finalOtp = otp.join('');
       if (finalOtp.length === 6) {
         try {
-        //   const updateApi = await postSendOtpVerifyAPi({
-        //     token,
-        //     otp: finalOtp,
-        //     vendor_id: 53,
-        //     login_type: 'user',
-        //   });
-  
-        //   if (updateApi?.data?.user_id) {
-        //     localStorage.setItem('forgetuserId', updateApi?.data?.user_id);
-        //     setOtpLoader(false);
-        //     setShowModal(false);
-        //     setShowPasswordReset(true);
-        //   }
+          const sendOtp = await axios.post(ApiUrls.verifyOtp,{ value:email,otp:finalOtp });
+          if (sendOtp?.data) {
+            setOtpLoader(false);
+            setShowModal(false);
+            setShowPasswordReset(true);
+          }
         } catch (error: any) {
           const errMsg =
             error?.response?.data?.error || 'Failed to verify OTP. Please try again.';
@@ -114,20 +105,19 @@ function ForgotPassword(){
   
       setPasswordLoader(true);
       try {
-        // const updateApi = await updateUserAPi(`/${userId}`, {
-        //   password: newPassword,
-        //   updated_by: "user",
-        //   role: 3,
-        //   vendor: 53,
-        // });
+        const updateApi = await axios.post(ApiUrls.resetPassword, {
+          password: newPassword,
+          value:email,
+          confirmPassword:confirmPassword
+        });
   
-        // if (updateApi) {
-        //   navigate('/login');
-        //   setShowPasswordReset(false);
-        //   setEmail('');
-        //   setNewPassword('');
-        //   setConfirmPassword('');
-        // }
+        if (updateApi) {
+          navigate('/login');
+          setShowPasswordReset(false);
+          setEmail('');
+          setNewPassword('');
+          setConfirmPassword('');
+        }
       } catch (error) {
         console.error('Password reset failed:', error);
         // Optional: Show error toast or alert
@@ -140,23 +130,17 @@ function ForgotPassword(){
   
     const sendOtpToEmail = async () => {
       setErrorMessage('');
-    //   try {
-    //     const updateApi = await getCheckEmailApi(`?email=${email}&vendor_id=53`);
-    //     if (updateApi?.data?.id) {
-    //       const sendOtp = await postSendOtpAPi({ email: updateApi?.data?.email });
-    //       if (sendOtp) {
-    //         setToken(sendOtp?.data?.token);
-    //         setShowModal(true);
-    //         setTimer(60);
-    //         setOtp(Array(6).fill(''));
-    //         setTimeout(() => inputsRef.current[0]?.focus(), 100);
-    //       }
-    //     } else {
-    //       setErrorMessage("You're not a registered user. Please create an account.");
-    //     }
-    //   } catch (error: any) {
-    //     setErrorMessage("Failed to send OTP. Please try again.");
-    //   }
+      try {
+        const resendOtp=await axios.post(ApiUrls.sendOtp,{value:email})
+        if (resendOtp?.data) {
+                setTimer(60);
+            setOtp(Array(6).fill(''));
+        } else {
+          setErrorMessage("You're not a registered user. Please create an account.");
+        }
+      } catch (error: any) {
+        setErrorMessage("Failed to send OTP. Please try again.");
+      }
     };
   
   

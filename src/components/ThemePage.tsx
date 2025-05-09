@@ -36,7 +36,7 @@ function ChooseThemeIndex() {
             description: 'Description or short preview of the theme.',
             image: 'https://themewagon.com/wp-content/uploads/2020/12/eflyer.jpg',
             link: 'https://ftds-website-demo.web.app/',
-            id: 1,
+            id: 2,
         },
         {
             name: 'Theme 2',
@@ -97,47 +97,8 @@ function ChooseThemeIndex() {
                 <h1 className="text-4xl font-bold pt-3">Choose Your Website Theme</h1>
                 <p className="text-gray-800 text-sm py-2">Choose from over 100 website templates and themes. Explore items created by our global community of independent designers and developers, confident they're hand-reviewed by us.</p>
             </div>
-            {profileData?.webDetails?.length &&(
-                 <div className=" lg:px-40 px-5">
-                 <h1 className="text-lg font-bold py-4 flex">Your Theme</h1>
-                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 w-full">
-                     {profileData?.webDetails?.map((item: any, index: number) => (
-                     <div key={index} className={`bg-white rounded-md shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105`}>
-                     <div className="h-20 bg-gray-200 overflow-hidden mb-1">
-                         <img
-                             src={themeDatas[index % themeDatas.length]?.image}
-                             alt={item?.name}
-                             className="w-full h-full object-cover rounded-tr-md rounded-tl-md"
-                         />
-                     </div>
-                     <div className="p-2">
-                         <h2 className="text-md font-semibold mb-1">Theme {index + 1}</h2>
-                         <p className="text-gray-600 text-sm mb-2">Description or short preview of the theme.</p>
-                         <p>{item?.domain}</p>
-                         <div className="flex gap-1 justify-end flex-wrap">
-                             <button
-                                 className="px-4 py-2 text-blue-600 rounded-md hover:bg-blue-500 hover:text-white  flex gap-1 border-2"
-                                 onClick={() => window.open(getFullUrl(item?.domain), "_blank")}
-                             >
-                                 Live
-                             </button>
-                             <button
-                                 className="px-4 py-2 text-blue-600 rounded-md hover:bg-blue-500 hover:text-white  flex gap-1 border-2"
-                                 // onClick={() => window.open(`${item?.link}`, "_blank")}
-                                 onClick={() => navigate(`/profile/${item?.theme_id}/${item?.sub_domain}`)}
-                             >
-                                 Edit Theme
-                             </button>
-                         </div>
-                     </div>
-                 </div>
-                     ))}
-                 </div>
- 
-             </div>
-            )}
-           
-            
+
+        
             <div className="p-10 lg:px-40 px-5">
                 <h1 className="text-lg font-bold py-4 flex">Choose Your Theme</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 w-full">
@@ -173,7 +134,45 @@ function ChooseThemeIndex() {
                 </div>
 
             </div>
-
+            {profileData?.webDetails?.length &&(
+                 <div className=" lg:px-40 px-5">
+                 <h1 className="text-lg font-bold py-4 flex">Your Theme</h1>
+                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5 w-full">
+                     {profileData?.webDetails?.slice(0,4)?.map((item: any, index: number) => (
+                     <div key={index} className={`bg-white rounded-md shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105`}>
+                     <div className="h-20 bg-gray-200 overflow-hidden mb-1">
+                         <img
+                             src={themeDatas[index % themeDatas.length]?.image}
+                             alt={item?.name}
+                             className="w-full h-full object-cover rounded-tr-md rounded-tl-md"
+                         />
+                     </div>
+                     <div className="p-2">
+                         <h2 className="text-md font-semibold mb-1">{item?.sub_domain}</h2>
+                         <p className="text-gray-600 text-sm mb-2">{item?.sliderData?.description?.slice(0,80)}</p>
+                         {/* <p>{item?.domain}</p> */}
+                         <div className="flex gap-1 justify-end flex-wrap">
+                             <button
+                                 className="px-4 py-2 text-blue-600 rounded-md hover:bg-blue-500 hover:text-white  flex gap-1 border-2"
+                                 onClick={() => window.open(getFullUrl(item?.domain), "_blank")}
+                             >
+                                 View Website
+                             </button>
+                             <button
+                                 className="px-4 py-2 text-blue-600 rounded-md hover:bg-blue-500 hover:text-white  flex gap-1 border-2"
+                                 // onClick={() => window.open(`${item?.link}`, "_blank")}
+                                 onClick={() => navigate(`/profile/${item?.theme_id}/${item?.sub_domain}`)}
+                             >
+                                 Edit Website
+                             </button>
+                         </div>
+                     </div>
+                 </div>
+                     ))}
+                 </div>
+ 
+             </div>
+            )}
 
 
         </>

@@ -16,11 +16,11 @@ function CreateDomain() {
     const token = localStorage.getItem('token');
     const theme2 = {
         // logo: 'logo',
-        sliderData: 
-            {
-                title: 'You Can\nHire Freelancer\nHere',
-                description: 'It is a long established fact that a reader will be distracted by the readable content of a page',
-            },
+        sliderData:
+        {
+            title: 'You Can\nHire Freelancer\nHere',
+            description: 'It is a long established fact that a reader will be distracted by the readable content of a page',
+        },
         experinceData: {
             title: 'Best Experinced Freelancer Here',
             description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as',
@@ -114,7 +114,7 @@ function CreateDomain() {
         watch,
         formState: { errors, isValid },
     } = useForm();
-const domainName=watch('subdomain')
+    const domainName = watch('subdomain')
     const handleDomainCheck = async (val: any) => {
         setDomainLoader(true);
         setDomainError('');
@@ -149,18 +149,18 @@ const domainName=watch('subdomain')
         try {
             const res = await axios.post(url.createSubdomain, payload);
             if (res) {
-                const payload={
+                const payload = {
                     ...theme2,
-                    sub_domain:data?.subdomain,
-                        theme_id: 'Theme2'
+                    sub_domain: data?.subdomain,
+                    theme_id: 'Theme2'
                 }
                 if (numericId === 2) {
                     const updateTheme = await axios.post(api.websiteCreate, payload,
                         {
                             headers: {
-                              Authorization: `Bearer ${token}`,
+                                Authorization: `Bearer ${token}`,
                             },
-                          }
+                        }
                     )
                     if (updateTheme) {
                         navigate(`/profile/chooseTheme/theme${id}/${res?.data?.result?.name}`)
@@ -180,19 +180,19 @@ const domainName=watch('subdomain')
     // const onSubmit = async (data: any) => {
     //     setLoading(true);
     //     setErrorMessage('');
-      
+
     //     const payload = {
     //       ...data,
     //       themeName: `Theme${id}`,
     //     };
-      
+
     //     try {
     //       const res = await axios.post(url.createSubdomain, payload);
-      
+
     //       if (!res?.data?.result?.name) {
     //         throw new Error("Invalid response from subdomain creation.");
     //       }
-      
+
     //       if (numericId === 2) {
     //         try {
     //           const updateTheme = await axios.post(api.websiteCreate, {
@@ -200,11 +200,11 @@ const domainName=watch('subdomain')
     //             data,
     //             theme_id: 'Theme2',
     //           });
-      
+
     //           if (!updateTheme?.data) {
     //             throw new Error("Website update failed.");
     //           }
-      
+
     //         //   navigate(`/profile/chooseTheme/theme${id}/${res.data.result.name}`);
     //         } catch (themeErr: any) {
     //             console.log(themeErr?.response?.data?.msg)
@@ -223,7 +223,7 @@ const domainName=watch('subdomain')
     //     }
     //   };
 
-      
+
     return (
         <>
             <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-blue-500 via-gray-500 to-slate-500">
@@ -247,15 +247,14 @@ const domainName=watch('subdomain')
                                         }`}
                                 />
                                 {domainLoader && (
-                                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                                    <div className="absolute right-3 top-1/3 -translate-y-1/2">
                                         <Loader className="animate-spin text-blue-500" />
                                     </div>
                                 )}
-                                {domainLoader === false && domainName &&(
+                                {!domainError && domainName && (
                                     <p className="text-gray-400 mt-2">{domainName}.ftdigitalsolutions.org</p>
-                                )
+                                )}
 
-                                }
                             </div>
 
                             {typeof errors.subdomain?.message === "string" && (
