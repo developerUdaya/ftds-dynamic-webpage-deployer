@@ -226,7 +226,7 @@ function ProfilePage() {
                                 />
                             </div>
                             <div className="p-2">
-                                <h2 className="text-md font-semibold mb-1">Theme {index + 1}</h2>
+                                <h2 className="text-md font-semibold mb-1 flex flex-wrap">{item?.sub_domain}</h2>
                                 <p className="text-gray-600 text-sm mb-4">Description or short preview of the theme.</p>
                                 <p>{item?.domain}</p>
                                 <div className="flex gap-1 justify-end flex-wrap">

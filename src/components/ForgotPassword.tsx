@@ -1,7 +1,8 @@
+import axios from "axios";
 import { Eye, EyeOff, Loader2, Mail } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import ApiUrls from '../url'
 function ForgotPassword(){
     const [email, setEmail] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -33,28 +34,29 @@ function ForgotPassword(){
       e.preventDefault();
       setErrorMessage('');
       setEmailLoader(true)
-    //   try {
-    //     const updateApi = await getCheckEmailApi(`?email=${email}&vendor_id=53`);
+      console.log(email)
+      try {
+        const updateApi = await axios.post(ApiUrls.checkEmail,{email});
+        console.log(updateApi?.data?.result?._id)
+        if (updateApi?.data?.result?._id) {
+        //   const sendOtp = await postSendOtpAPi({ email: updateApi?.data?.email });
   
-    //     if (updateApi?.data?.id) {
-    //       const sendOtp = await postSendOtpAPi({ email: updateApi?.data?.email });
-  
-    //       if (sendOtp) {
-    //         setEmailLoader(false);
-    //         setToken(sendOtp?.data?.token);
-    //         setShowModal(true);
-    //         setTimer(60);
-    //         setOtp(Array(6).fill(''));
-    //         setTimeout(() => inputsRef.current[0]?.focus(), 100);
-    //       }
-    //     } else {
-    //       setErrorMessage("You're not a user, please create an account.");
-    //       setEmailLoader(false);
-    //     }
-    //   } catch (error) {
-    //     setErrorMessage("You're not a user, please create an account.");
-    //     setEmailLoader(false);
-    //   }
+        //   if (sendOtp) {
+        //     setEmailLoader(false);
+        //     setToken(sendOtp?.data?.token);
+        //     setShowModal(true);
+        //     setTimer(60);
+        //     setOtp(Array(6).fill(''));
+        //     setTimeout(() => inputsRef.current[0]?.focus(), 100);
+        //   }
+        } else {
+          setErrorMessage("You're not a user, please create an account.");
+          setEmailLoader(false);
+        }
+      } catch (error) {
+        setErrorMessage("You're not a user, please create an account.");
+        setEmailLoader(false);
+      }
     };
   
   
@@ -199,7 +201,15 @@ function ForgotPassword(){
             </div>
           </div>
           {errorMessage && (
+            <>
             <p className="text-sm text-red-600 mt-2">{errorMessage}</p>
+            <p className="text-gray-600">
+              Don't have an account?{' '}
+              <Link to="/register" className="text-blue-600 hover:underline">
+                Register
+              </Link>
+            </p>
+            </>
           )}
 
           <button
