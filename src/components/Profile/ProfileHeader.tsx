@@ -9,13 +9,13 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { useNavigate } from 'react-router-dom'
-
+import LogoImage from '../../assets/images/ftLogo.jpeg'
 
 function ProfileHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const handleLogOut=()=>{
+  const handleLogOut = () => {
     localStorage.clear();
     navigate('/login')
   }
@@ -25,9 +25,12 @@ const navigate=useNavigate();
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img
+            {/* <img
               alt=""
               src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+              className="h-8 w-auto"
+            /> */}
+            <img src={LogoImage}
               className="h-8 w-auto"
             />
           </a>
@@ -42,14 +45,15 @@ const navigate=useNavigate();
             <Bars3Icon aria-hidden="true" className="size-6" />
           </button>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <a href="profile" className="text-sm/6 font-semibold text-gray-900">
-            Profile
-          </a>
-        </PopoverGroup>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-5">
+          <PopoverGroup className="hidden lg:flex lg:gap-x-12">
+            <a href="profile" className="text-sm/6 font-semibold text-gray-900">
+              Profile
+            </a>
+          </PopoverGroup>
           <a href="#" className="text-sm/6 font-semibold text-gray-900"
-         onClick={() => handleLogOut()}
+            onClick={() => handleLogOut()}
           >
             Log Out <span aria-hidden="true">&rarr;</span>
           </a>
@@ -61,9 +65,12 @@ const navigate=useNavigate();
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
+              {/* <img
                 alt=""
                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                className="h-8 w-auto"
+              /> */}
+              <img src={LogoImage}
                 className="h-8 w-auto"
               />
             </a>
@@ -77,12 +84,12 @@ const navigate=useNavigate();
             </button>
           </div>
           <div className="mt-6 flow-root">
-          <a
-                  href="profile"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  Profile
-                </a>
+            <a
+              href="profile"
+              className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+            >
+              Profile
+            </a>
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="py-6">
                 <a

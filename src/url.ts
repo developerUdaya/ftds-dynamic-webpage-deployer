@@ -1,6 +1,6 @@
 // const baseUrl = "http://82.29.161.36:2000";
-const baseUrl = "http://192.168.0.21:2000";
-// const baseUrl='https://webapi.ftdigitalsolutions.org'
+// const baseUrl = "http://192.168.0.25:2000";
+const baseUrl='https://webapi.ftdigitalsolutions.org';
 
 const profileApi = `${baseUrl}/user/profile`;
 const createSubdomain = `${baseUrl}/auth/create/subdomain`;
@@ -13,6 +13,7 @@ const checkEmail=`${baseUrl}/auth/check/email`;
 const sendOtp=`${baseUrl}/forgot/password`;
 const verifyOtp=`${baseUrl}/reset/verify`;
 const resetPassword=`${baseUrl}/reset/password`;
+const signupOtpVerify=`${baseUrl}/signup/otp/verify`;
 export default {
   profileApi,
   createSubdomain,
@@ -25,4 +26,5 @@ export default {
   sendOtp,
   verifyOtp,
   resetPassword,
+  signupOtpVerify,
 };

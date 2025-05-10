@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import url from "../url";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,6 +14,7 @@ function CreateDomain() {
     const [errorMessage, setErrorMessage] = useState('');
     const numericId = Number(id);
     const token = localStorage.getItem('token');
+    const abortControllerRef = useRef<AbortController | null>(null);
     const theme2 = {
         // logo: 'logo',
         sliderData:
@@ -118,12 +119,22 @@ function CreateDomain() {
     const handleDomainCheck = async (val: any) => {
         setDomainLoader(true);
         setDomainError('');
+        // Cancel previous request if still ongoing
+        if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+        }
+
+        // Create a new abort controller
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
         try {
             if (val.length) {
-                const updateApi: any = await axios.get(`${url.checkDomain}/?sub_domain=${val}`)
+                const updateApi: any = await axios.get(`${url.checkDomain}/?sub_domain=${val}`, {
+                    signal: controller.signal,
+                  })
                 console.log(updateApi)
                 if (updateApi?.data?.msg === 'Domain Name Alredy Exist') {
-                    setDomainError('Domain Name Alredy Exist')
+                    setDomainError('Business Name Alredy Exist')
                     setDomainLoader(false);
                 } else {
                     setDomainError('');
@@ -247,12 +258,12 @@ function CreateDomain() {
                                         }`}
                                 />
                                 {domainLoader && (
-                                    <div className="absolute right-3 top-1/3 -translate-y-1/2">
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
                                         <Loader className="animate-spin text-blue-500" />
                                     </div>
                                 )}
-                                {!domainError && domainName && (
-                                    <p className="text-gray-400 mt-2">{domainName}.ftdigitalsolutions.org</p>
+                                {!domainError && domainName && !domainLoader && (
+                                    <p className="text-gray-400 mt-2 flex flex-wrap">{domainName}.ftdigitalsolutions.org</p>
                                 )}
 
                             </div>

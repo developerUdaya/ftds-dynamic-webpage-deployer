@@ -18,27 +18,6 @@ function Login({ onAuthChange }: { onAuthChange: () => void }) {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('');
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   try {
-  //     const response = await axios.post(url.signIn, formData)
-  //     console.log(response.data?.result?.tokens?.accessToken);
-  //     if (response) {
-  //       localStorage.setItem('token', response.data?.result?.tokens?.accessToken);
-  //       onAuthChange();
-  //       console.log('Login Form Data:', formData);
-  //       navigate('/chooseTheme');
-  //       setLoading(true);
-  //     }
-
-  //   } catch (error) {
-  //     setLoading(false);
-
-  //   }
-
-  // };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);

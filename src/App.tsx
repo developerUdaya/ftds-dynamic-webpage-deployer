@@ -13,11 +13,6 @@ import ProtectedRoutes from './ProtectedRoutes';
 // Function to check authentication status
 const isAuthenticated = () => !!localStorage.getItem('token');
 
-// Protected Route Component
-const PrivateRoute = ({ element }: { element: React.ReactElement }) => {
-  return isAuthenticated() ? element : <Navigate to="/login" />;
-};
-
 function App() {
   const [auth, setAuth] = useState(isAuthenticated());
   const token = localStorage.getItem('token');
@@ -46,16 +41,6 @@ function App() {
           <Route path="/profile/Theme2/:id" element={<Theme2Index />} />
           <Route path="/chooseTheme/subDomainCreate/:id" element={<CreateDomain />} />
         </Route>
-        {/* <Route path="/chooseTheme/dashboard/:id" element={<PrivateRoute element={<Dashboard />} />} />
-        <Route path="/chooseTheme" element={<ChooseThemeIndex />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/profile/chooseTheme/dashboard/:id" element={<Dashboard />} />
-        <Route path="/profile/chooseTheme/dashboard" element={<Dashboard />} />
-        <Route path="/profile/chooseTheme/dashboard" element={<Dashboard />} />
-        <Route path="/profile/chooseTheme/Theme2/:id" element={<Theme2Index />} />
-        <Route path="/profile/chooseTheme/Theme1/:id" element={<Theme2Index />} />
-        <Route path="/profile/Theme2/:id" element={<Theme2Index />} />
-        <Route path="/chooseTheme/subDomainCreate/:id" element={<CreateDomain />} /> */}
       </Routes>
       {/* </div>
       </div> */}

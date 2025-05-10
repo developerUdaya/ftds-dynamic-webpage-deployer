@@ -1,17 +1,20 @@
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function EditDataModal({ text, onSave, isHeader = false, fieldId, loading }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [value, setValue] = useState(text);
 
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setValue(text);
+    }
+  }, [text, isModalOpen]);
+
   const handleSave = () => {
     onSave(value)
-    // if (loading === false) {
-      // console.log(loading)
       setIsModalOpen(false);
-
-    // }
   };
   return (
     <>
