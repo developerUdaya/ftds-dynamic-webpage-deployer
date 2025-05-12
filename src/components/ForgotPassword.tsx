@@ -12,8 +12,6 @@ function ForgotPassword(){
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const inputsRef = useRef<HTMLInputElement[]>([]);
-    const [token, setToken] = useState('');
-    const userId = localStorage.getItem('forgetuserId');
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const [emailLoader, setEmailLoader] = useState(false);

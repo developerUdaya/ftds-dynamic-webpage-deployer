@@ -61,8 +61,6 @@ function Register() {
         setTimer(60);
         setOtp(Array(6).fill(''));
         setTimeout(() => inputsRef.current[0]?.focus(), 100);
-        // localStorage.setItem('token', response?.data?.result?.tokens?.accessToken);
-        // navigate('/chooseTheme');
       }
     } catch (error: any) {
       const message =
@@ -259,16 +257,6 @@ function Register() {
             )}
 
             <div className="flex justify-between">
-              {/* <button
-                onClick={handleOtpSubmit}
-                className="w-full  bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-                disabled={optLoader || otp?.length !== 6 || !otp.every(d => d.trim() !== '')}
-              >
-                <div className='flex gap-2 justify-center'>
-                  Verify OTP   {optLoader ? (<Loader2 className='animate-spin' />) : ''}
-                </div>
-              </button> */}
-
               <button
                 onClick={handleOtpSubmit}
                 className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed"

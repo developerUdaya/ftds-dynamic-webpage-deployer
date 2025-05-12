@@ -31,7 +31,6 @@ import EditDataModal from './EditDataModal';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import api from '../../../url';
-import { Tag, X } from 'lucide-react';
 // Reusable EditableImage component
 interface EditableImageProps {
   src: string;
@@ -55,13 +54,7 @@ const EditableImage: React.FC<EditableImageProps> = ({ src, alt, onSave, fieldId
     <>
       <div className="position-relative">
         <img src={src} alt={alt} className="img-fluid max-w-xs" />
-        {/* <i
-          className="bi bi-pencil-square position-absolute"
-          style={{ top: '10px', right: '10px', cursor: 'pointer', fontSize: '1.2rem', color: 'white', background: 'rgba(0,0,0,0.5)', padding: '5px' }}
-          onClick={() => setIsModalOpen(true)}
-        ></i> */}
       </div>
-
       <div className={`modal fade ${isModalOpen ? 'show d-block' : ''}`} tabIndex={-1} role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -185,7 +178,7 @@ function Theme2Index() {
   const getFullUrl = (url: any) => {
     if (!url) return "#";
     return url.startsWith("http://") || url.startsWith("https://") ? url : `https://${url}`;
-};
+  };
 
   const [freelanceHeader, setFreelanceHeader] = useState('');
 
@@ -332,7 +325,7 @@ function Theme2Index() {
     }
 
   }, [profileData]);
-console.log(clientTextList)
+  console.log(clientTextList)
 
 
 
@@ -395,7 +388,6 @@ console.log(clientTextList)
 
             setLoading(false);
           }
-          // console.log(response?.data);
         } catch (error: any) {
           setLoading(false);
         }
@@ -424,10 +416,8 @@ console.log(clientTextList)
           if (response) {
             setLoading(false);
           }
-          // console.log(response.data);
         } catch (error: any) {
           setLoading(false);
-          // console.error(error?.response);
         }
       };
 
@@ -461,10 +451,10 @@ console.log(clientTextList)
           if (response) {
             setLoading(false);
           }
-          // console.log("✅ About Data Posted:", response?.data);
+
         } catch (error: any) {
           setLoading(false);
-          // console.error("❌ Error posting about data:", error?.response || error);
+
         }
       };
       postAboutData();
@@ -497,10 +487,10 @@ console.log(clientTextList)
           if (response) {
             setLoading(false);
           }
-          // console.log('✅ Feedback posted:', response?.data);
+
         } catch (error: any) {
           setLoading(false);
-          // console.error('❌ Error posting feedback:', error?.response || error);
+
         }
       };
       postClientText();
@@ -514,9 +504,9 @@ console.log(clientTextList)
         try {
           const payload = {
             feedbackData: {
-              feedback: clientTextList.map((item):any => ({
-                name:item?.name,
-                description:item?.description
+              feedback: clientTextList.map((item): any => ({
+                name: item?.name,
+                description: item?.description
               })),
             },
             sub_domain: profileData?.sub_domain ? profileData?.sub_domain : `${id}`,
@@ -530,9 +520,9 @@ console.log(clientTextList)
           if (response) {
             setLoading(false);
           }
-          // console.log('✅ Feedback posted:', response?.data);
+
         } catch (error: any) {
-          // console.error('❌ Error posting feedback:', error?.response || error);
+
         }
       };
       postFeedback();
@@ -564,9 +554,9 @@ console.log(clientTextList)
           if (response) {
             setLoading(false);
           }
-          // console.log('✅ Footer data posted:', response?.data);
+
         } catch (error: any) {
-          // console.error('❌ Error posting footer data:', error?.response || error);
+
         }
       };
 
@@ -579,37 +569,27 @@ console.log(clientTextList)
       {profileData && (
         <>
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-          {/* <div className="flex gap-1 justify-end flex-wrap p-2">
-            <button
-              className="px-4 py-2 text-white-600 rounded-md bg-blue-500 hover:bg-blue-500 hover:text-white  flex gap-1 border-2"
-              onClick={() => navigate('/profile')}
-            >
-              Submit
-            </button>
-
-          </div> */}
           <div className="bg-blue-600">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-2 flex-wrap">
-          <div className="flex items-center gap-2 text-white">
-            <p className="text-sm font-medium my-auto">
-            Your dynamic website has been successfully created
-              <span className="font-bold cursor-pointer ml-1 hover:text-red-400" 
-               onClick={() => window.open(getFullUrl(profileData?.domain), "_blank")}
-              >-  Click here to view it</span>
-            </p>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between py-2 flex-wrap">
+                <div className="flex items-center gap-2 text-white">
+                  <p className="text-sm font-medium my-auto">
+                    Your dynamic website has been successfully created
+                    <span className="font-bold cursor-pointer ml-1 hover:text-red-400"
+                      onClick={() => window.open(getFullUrl(profileData?.domain), "_blank")}
+                    >-  Click here to view it</span>
+                  </p>
+                </div>
+                <button
+                  className="px-4 py-1 text-white-600 rounded-md bg-white hover:bg-blue-500 hover:text-black  flex gap-1 border-2"
+                  onClick={() => navigate('/profile')}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
           </div>
-          <button
-              className="px-4 py-1 text-white-600 rounded-md bg-white hover:bg-blue-500 hover:text-black  flex gap-1 border-2"
-              onClick={() => navigate('/profile')}
-            >
-              Submit
-            </button>
-        </div>
-      </div>
-    </div>
           <div className="hero_area">
-            {/* Header Section */}
             <header className="header_section">
               <div className="container-fluid">
                 <nav className="navbar navbar-expand-lg custom_nav-container">
@@ -620,12 +600,6 @@ console.log(clientTextList)
                       onSave={(newUrl) => updateImage('logo', newUrl)}
                       fieldId="header-logo"
                     />
-                    {/* <EditDataModal
-                  text={headerText}
-                  onSave={setHeaderText}
-                  isHeader
-                  fieldId="header-title"
-                /> */}
                   </a>
                   <button
                     className="navbar-toggler"
@@ -784,47 +758,10 @@ console.log(clientTextList)
               <div className="heading_container">
                 <h2>Category</h2>
               </div>
-              {/* <div className="category_container">
-            {categoryText.map((title, index) => (
-              <div className="box" key={index}>
-                <div className="img-box">
-                  <EditableImage
-                    src={[images.c1, images.c2, images.c3, images.c4, images.c5, images.c6][index]}
-                    alt={`Category ${index + 1}`}
-                    onSave={(newUrl) => updateImage(`c${index + 1}` as keyof typeof images, newUrl)}
-                    fieldId={`category-img-${index}`}
-                  />
-                </div>
-                <div className="detail-box">
-                  <EditDataModal
-                    text={title}
-                    onSave={(newText:any) => {
-                      const newCategories = [...categoryText];
-                      newCategories[index] = newText;
-                      setCategoryText(newCategories);
-                    }}
-                    isHeader
-                    fieldId={`category-${index}`}
-                  />
-                </div>
-              </div>
-            ))}
-          </div> */}
               <div className="category_container">
-                {categoryText?.map((category: any, index:any) => (
+                {categoryText?.map((category: any, index: any) => (
                   <div className="box" key={index}>
                     <div className="img-box">
-                      {/* <EditableImage
-                src={`category.image`}
-                alt={`Category ${index + 1}`}
-                onSave={(newUrl) => {
-                  const newData = [...categoryText];
-                  newData[index].image = newUrl;
-                  setCategoryText(newData);
-                }}
-                fieldId={`category-img-${index}`}
-              /> */}
-                      {/* <img src={category?.image} /> */}
                       <img
                         src={categorysImage[index]?.image}
                         alt={`Category ${index + 1}`}
@@ -835,7 +772,7 @@ console.log(clientTextList)
                       <EditDataModal
                         text={category.text}
                         onSave={(newText: any) => {
-                          const newData:any = [...categoryText];
+                          const newData: any = [...categoryText];
                           newData[index].text = newText;
                           setCategoryText(newData);
                         }}
@@ -892,7 +829,7 @@ console.log(clientTextList)
                       <div className="heading_container">
                         <EditDataModal
                           text={freelanceHeader}
-                          onSave={(newTitle:any) => setFreelanceHeader(newTitle)}
+                          onSave={(newTitle: any) => setFreelanceHeader(newTitle)}
                           isHeader
                           fieldId="freelance-header-title"
                         />
@@ -908,27 +845,17 @@ console.log(clientTextList)
                             key={index}
                           >
                             <div className="img-box">
-                              {/* <EditableImage
-                                src={item.img}
-                                alt={`Freelance ${index + 1}`}
-                                onSave={(newUrl) => {
-                                  const updated = [...freelanceStats];
-                                  updated[index].img = newUrl;
-                                  setFreelanceStats(updated);
-                                }}
-                                fieldId={`freelance-img-${index}`}
-                              /> */}
                               {/* freelanceImage */}
                               <img
-  src={freelanceImage[index]?.image}
-  alt={`freelancer ${index + 1}`}
-/>
+                                src={freelanceImage[index]?.image}
+                                alt={`freelancer ${index + 1}`}
+                              />
 
                             </div>
                             <div className="detail-box">
                               <EditDataModal
                                 text={item.value}
-                                onSave={(newValue:any) => {
+                                onSave={(newValue: any) => {
                                   const updated = [...freelanceStats];
                                   updated[index].value = newValue;
                                   setFreelanceStats(updated);
@@ -937,7 +864,7 @@ console.log(clientTextList)
                               />
                               <EditDataModal
                                 text={item.title}
-                                onSave={(newTitle:any) => {
+                                onSave={(newTitle: any) => {
                                   const updated = [...freelanceStats];
                                   updated[index].title = newTitle;
                                   setFreelanceStats(updated);
@@ -950,14 +877,6 @@ console.log(clientTextList)
                       </div>
                     </div>
                   </div>
-                  {/* <div className="img-box">
-                    <EditableImage
-                      src={images.freelance}
-                      alt="Freelance"
-                      onSave={(newUrl) => updateImage('freelance', newUrl)}
-                    // fieldId={`freelance-main-img-${index}`}
-                    />
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -1093,7 +1012,7 @@ console.log(clientTextList)
                       <h5>Offices</h5>
                       <EditDataModal
                         text={footerText.offices}
-                        onSave={(newText:any) => setFooterText({ ...footerText, offices: newText })}
+                        onSave={(newText: any) => setFooterText({ ...footerText, offices: newText })}
                         fieldId="footer-offices"
                       />
                     </div>
@@ -1101,7 +1020,7 @@ console.log(clientTextList)
                       <h5>Information</h5>
                       <EditDataModal
                         text={footerText.information}
-                        onSave={(newText:any) => setFooterText({ ...footerText, information: newText })}
+                        onSave={(newText: any) => setFooterText({ ...footerText, information: newText })}
                         fieldId="footer-information"
                       />
                     </div>
@@ -1130,9 +1049,6 @@ console.log(clientTextList)
                                 fieldId="contact-location"
                               />
                             </div>
-                            {/* <div className="detail-box">
-                          <h6>Location</h6>
-                        </div> */}
                             <div className="detail-box">
                               <EditDataModal
                                 text={footerText.copyright}

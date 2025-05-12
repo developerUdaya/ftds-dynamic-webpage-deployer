@@ -16,7 +16,6 @@ function CreateDomain() {
     const token = localStorage.getItem('token');
     const abortControllerRef = useRef<AbortController | null>(null);
     const theme2 = {
-        // logo: 'logo',
         sliderData:
         {
             title: 'You Can\nHire Freelancer\nHere',
@@ -29,57 +28,46 @@ function CreateDomain() {
         categoryData: [
             {
                 text: 'Design & Arts',
-                // image: 'imagesC1'
             },
             {
                 text: 'Web Development',
-                // image: 'imagesC2'
             },
             {
                 text: 'SEO Markting',
-                // image: 'imagesC3'
             },
             {
                 text: 'Video Edting',
-                // image: 'imagesC4'
             },
             {
                 text: 'Logo Design',
-                // image: 'imagesC5'
             },
             {
                 text: 'Game Design',
-                // image: 'imagesC6'
+
             },
         ],
         aboutData: {
             title: 'About Spering Company',
             description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If youThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you',
-            // image: 'images/experience-img.jpg'
         },
         freelanceData: {
             title: 'Work Freelaner Has Done',
-            // image: 'images/freelance-img.jpg',
             works: [
                 {
                     count: '$250 Million',
                     tittle: 'Paid to Freelancers',
-                    // image: "imagesF1",
                 },
                 {
                     count: '2 Million',
                     tittle: 'Paid Invoices',
-                    // image: "imagesF2",
                 },
                 {
                     count: '700,000',
                     tittle: 'Worldwide Freelancer',
-                    // image: "imagesF3",
                 },
                 {
                     count: '98%',
                     tittle: 'Customer Satisfaction Rate',
-                    // image: "imagesF4",
                 },
             ]
         },
@@ -177,7 +165,6 @@ function CreateDomain() {
                         navigate(`/profile/chooseTheme/theme${id}/${res?.data?.result?.name}`)
                     }
                 }
-                // navigate(`/profile/chooseTheme/theme${id}/${res?.data?.result?.name}`)
             }
         } catch (error: any) {
             console.log(error)
@@ -187,52 +174,6 @@ function CreateDomain() {
             setLoading(false);
         }
     };
-
-    // const onSubmit = async (data: any) => {
-    //     setLoading(true);
-    //     setErrorMessage('');
-
-    //     const payload = {
-    //       ...data,
-    //       themeName: `Theme${id}`,
-    //     };
-
-    //     try {
-    //       const res = await axios.post(url.createSubdomain, payload);
-
-    //       if (!res?.data?.result?.name) {
-    //         throw new Error("Invalid response from subdomain creation.");
-    //       }
-
-    //       if (numericId === 2) {
-    //         try {
-    //           const updateTheme = await axios.post(api.websiteCreate, {
-    //             theme2,
-    //             data,
-    //             theme_id: 'Theme2',
-    //           });
-
-    //           if (!updateTheme?.data) {
-    //             throw new Error("Website update failed.");
-    //           }
-
-    //         //   navigate(`/profile/chooseTheme/theme${id}/${res.data.result.name}`);
-    //         } catch (themeErr: any) {
-    //             console.log(themeErr?.response?.data?.msg)
-    //           const themeErrorMsg = themeErr?.response?.data?.msg || "Theme update failed.";
-    //           setErrorMessage(themeErrorMsg);
-    //         }
-    //       } else {
-    //         // navigate(`/profile/chooseTheme/theme${id}/${res.data.result.name}`);
-    //       }
-    //     } catch (error: any) {
-    //         console.log(error)
-    //       const message = error?.response?.data?.msg || "Something went wrong. Please try again.";
-    //       setErrorMessage(message);
-    //     } finally {
-    //       setLoading(false);
-    //     }
-    //   };
 
 
     return (
