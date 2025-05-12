@@ -213,40 +213,6 @@ function ProfilePage() {
                     {!profileLoading ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 w-full">
                             {profileData?.webDetails?.map((item: any, index: number) => (
-                                // <div
-                                //     key={index}
-                                //     className="bg-white rounded-md shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full"
-                                // >
-                                //     <div className="h-20 bg-gray-200 overflow-hidden mb-1">
-                                //         <img
-                                //             src={themeDatas[index % themeDatas.length]?.image}
-                                //             alt={item?.name}
-                                //             className="w-full h-full object-cover rounded-tr-md rounded-tl-md"
-                                //         />
-                                //     </div>
-                                //     <div className="p-2 flex flex-col flex-1">
-                                //         <h2 className="text-md font-semibold mb-1">{item?.sub_domain}</h2>
-                                //         <p className="text-gray-600 text-sm mb-2">
-                                //             {item?.sliderData?.description?.slice(0, 80)}
-                                //         </p>
-
-
-                                //         <div className="flex gap-1 justify-end flex-wrap items-end mt-auto">
-                                //             <button
-                                //                 className="px-4 py-2 text-blue-600 rounded-md hover:bg-blue-500 hover:text-white flex gap-1 border-2"
-                                //                 onClick={() => window.open(getFullUrl(item?.domain), "_blank")}
-                                //             >
-                                //                 View Website
-                                //             </button>
-                                //             <button
-                                //                 className="px-4 py-2 text-blue-600 rounded-md hover:bg-blue-500 hover:text-white flex gap-1 border-2"
-                                //                 onClick={() => navigate(`/profile/${item?.theme_id}/${item?.sub_domain}`)}
-                                //             >
-                                //                 Edit Website
-                                //             </button>
-                                //         </div>
-                                //     </div>
-                                // </div>
                                 <div
                                     key={index}
                                     className="bg-white rounded-xl shadow-lg p-4 flex flex-col justify-between transition-transform duration-300 hover:scale-105"
