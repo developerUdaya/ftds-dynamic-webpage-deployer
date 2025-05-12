@@ -9,6 +9,7 @@ import CreateDomain from './components/CreateDomain';
 import Theme2Index from './components/Themes/Theme2/Theme2';
 import ForgotPassword from './components/ForgotPassword';
 import ProtectedRoutes from './ProtectedRoutes';
+import LandingPage from './LandingPage';
 
 // Function to check authentication status
 const isAuthenticated = () => !!localStorage.getItem('token');
@@ -34,7 +35,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/" element={<Navigate to={token ? "/chooseTheme" : "/login"} />} />
-
+        <Route path="/landing" element={<LandingPage />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/chooseTheme" element={<ChooseThemeIndex />} />
           <Route path="/chooseTheme/dashboard/:id" element={<Dashboard />} />
