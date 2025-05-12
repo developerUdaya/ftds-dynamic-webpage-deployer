@@ -22,8 +22,6 @@ function App() {
 
   return (
     <Router>
-      {/* <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-        <div className="w-full "> */}
       <Routes>
         <Route path="/login" element={<Login onAuthChange={() => setAuth(isAuthenticated())} />} />
         <Route path="/register" element={<Register />} />
@@ -42,8 +40,6 @@ function App() {
           <Route path="/chooseTheme/subDomainCreate/:id" element={<CreateDomain />} />
         </Route>
       </Routes>
-      {/* </div>
-      </div> */}
     </Router>
   );
 }
